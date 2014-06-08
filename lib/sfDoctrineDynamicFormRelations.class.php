@@ -220,7 +220,7 @@ class sfDoctrineDynamicFormRelations extends sfForm
       {
         $child = $r->newInstanceArgs(array_merge(array($value), $config['arguments']));
       }
-      elseif ($value['id'])
+      elseif (!empty($value['id']))
       {
         $child = $this->findEmbeddedFormById($form, $field, $value['id']);
 

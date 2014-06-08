@@ -72,7 +72,7 @@ class sfDoctrineDynamicFormRelationsListener extends Doctrine_Record_Listener
           {
             // if a related object exists in the record but isn't represented
             // in the form, the reference has been removed
-            $collection->remove($i);
+            //$collection->remove($i);
 
             // if the foreign column is a notnull columns, delete the object
             $column = $config['relation']->getTable()->getColumnDefinition($config['relation']->getForeignColumnName());
