@@ -68,7 +68,8 @@ class sfDoctrineDynamicFormRelationsListener extends Doctrine_Record_Listener
 
         foreach ($collection as $i => $object)
         {
-          if (false === $pos = array_search($object, $search, true))
+          $pos = array_search($object, $search, true);
+          if (false ===  $pos && $this->filterObject($object, $config['arguments']))
           {
             // if a related object exists in the record but isn't represented
             // in the form, the reference has been removed
@@ -84,5 +85,25 @@ class sfDoctrineDynamicFormRelationsListener extends Doctrine_Record_Listener
         }
       }
     }
+  }
+
+  /**
+   * validate the fact that we need to filter the object based on the arguments
+   * @param $object
+   * @param array $arguments
+   * @return bool
+   */
+  protected function filterObject($object, array $arguments = array())
+  {
+    if(!empty($arguments))
+    {
+      foreach ($arguments as $index => $value)
+      {
+        if ($object->get($index) != $value) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }
